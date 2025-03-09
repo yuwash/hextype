@@ -1,5 +1,6 @@
 <script>
   import { writeOverText } from './hextype'
+  import { onMount } from 'svelte'
 	export let text
   let windowHeight
   let pressedKeyL = null
@@ -71,12 +72,23 @@
     const element = document.getElementById(elementId)
     element.scrollTop = element.scrollHeight
   }
+
+  onMount(() => {
+    document.addEventListener('keydown', onKeydown)
+    document.addEventListener('keyup', onKeyup)
+
+    return () => {
+      document.removeEventListener('keydown', onKeydown)
+      document.removeEventListener('keyup', onKeyup)
+    }
+  })
 </script>
 
 <svelte:window bind:innerHeight={windowHeight}/>
 
 <main>
-  <form><div class="form-row align-items-center" style="height: {windowHeight}px">
+  <form>
+    <div class="form-row align-items-center" style="height: {windowHeight}px">
     <div class="col-auto btn-group-vertical align-self-stretch">
     {#each getKeyState(pressedKeyL) as pressed, key}
       <button type="button"
@@ -87,7 +99,6 @@
     {/each}
     </div>
     <div class="col align-self-stretch">
-      <input class="form-control" type="text" aria-label="Your input" placeholder="Your input" on:keydown={onKeydown} on:keyup={onKeyup} />
       <div class="form-group">
         <label for="result-text">Result</label>
         <textarea class="form-control align-self-stretch" id="result-text" readonly>{text}</textarea>
