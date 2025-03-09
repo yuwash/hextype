@@ -82,6 +82,21 @@
       document.removeEventListener('keyup', onKeyup)
     }
   })
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(text)
+  }
+
+  const shareText = () => {
+    if (navigator.share) {
+      navigator.share({
+        text: text
+      }).then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error))
+    } else {
+      alert('Web Share API not supported.')
+    }
+  }
 </script>
 
 <svelte:window bind:innerHeight={windowHeight}/>
@@ -100,7 +115,10 @@
     </div>
     <div class="col align-self-stretch">
       <div class="form-group">
-        <label for="result-text">Result</label>
+        <label for="result-text">Result
+          <button class="btn btn-outline-secondary btn-sm" type="button" on:click={copyToClipboard}>Copy</button>
+          <button class="btn btn-outline-secondary btn-sm" type="button" on:click={shareText}>Share</button>
+        </label>
         <textarea class="form-control align-self-stretch" id="result-text" style="height: calc({windowHeight}px - 50px);" readonly>{text}</textarea>
       </div>
     </div>
