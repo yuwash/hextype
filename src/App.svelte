@@ -31,7 +31,7 @@
   }
 
   const registerLastCharacter = () => {
-    text = writeOverText(lastKeyL, lastKeyR, text, dispatch)
+    text = writeOverText(lastKeyL, lastKeyR, text, dispatch, characterSet)
     lastKeyL = null
     lastKeyR = null
     scrollBottom('result-text')

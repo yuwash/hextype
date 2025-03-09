@@ -83,21 +83,27 @@ const keyMap0xf = {
   15: 'Z',
 }
 
-export const getCharacter = (keyL, keyR) => {
+export const getCharacter = (keyL, keyR, characterSet) => {
   const subMap = keyCombinationCodes[keyL]
   if(!subMap) {
     return null
   }
-  return keyMap[subMap[keyR]]
+  if (characterSet === 0x0e) {
+    return keyMap0xe[subMap[keyR]]
+  } else if (characterSet === 0x0f) {
+    return keyMap0xf[subMap[keyR]]
+  } else {
+    return keyMap[subMap[keyR]]
+  }
 }
 
-export const writeOverText = (keyL, keyR, text, dispatch, cursor=null) => {
+export const writeOverText = (keyL, keyR, text, dispatch, characterSet, cursor=null) => {
   if(cursor === null) {
     cursor = text.length
   }
-  const character = getCharacter(keyL, keyR)
+  const character = getCharacter(keyL, keyR, characterSet)
   if(!character) {
-    return text  // key combination ignored
+    return text // key combination ignored
   } else if(character === '\b') {
     return text.substring(0, cursor - 1) + text.substring(cursor)
   } else if(character === '\x0d') {
