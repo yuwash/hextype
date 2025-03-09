@@ -1,7 +1,7 @@
 const keyCombinationCodes = {
   // left -> right -> code
   null: {
-    null: 0,
+    // null: not used because you’re not pressing any key.
     0: 1,
     1: 2,
     2: 3,
@@ -27,7 +27,6 @@ const keyCombinationCodes = {
 }
 
 const keyMap = {
-  0: '\0',  // not really used
   1: '1',
   2: '2',
   3: '3',
