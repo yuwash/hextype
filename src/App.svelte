@@ -101,7 +101,7 @@
     <div class="col align-self-stretch">
       <div class="form-group">
         <label for="result-text">Result</label>
-        <textarea class="form-control align-self-stretch" id="result-text" readonly>{text}</textarea>
+        <textarea class="form-control align-self-stretch" id="result-text" style="height: calc({windowHeight}px - 50px);" readonly>{text}</textarea>
       </div>
     </div>
     <div class="col-auto btn-group-vertical align-self-stretch">
