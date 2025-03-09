@@ -71,7 +71,8 @@
     <div class="col-auto btn-group-vertical align-self-stretch">
     {#each getKeyState(pressedKeyL) as pressed, key}
       <button type="button"
-        class="btn btn-outline-secondary{ pressed ? ' active' : '' }" aria-pressed="{ pressed }"
+        class:active={pressed}
+        class="btn btn-outline-secondary" aria-pressed="{ pressed }"
         on:touchstart="{ () => onKeydownL(key) }"
         on:touchend="{ () => onKeyupL(key) }">L{ key }</button>
     {/each}
@@ -86,7 +87,8 @@
     <div class="col-auto btn-group-vertical align-self-stretch">
     {#each getKeyState(pressedKeyR) as pressed, key}
       <button type="button"
-        class="btn btn-outline-secondary{ pressed ? ' active' : '' }" aria-pressed="{ pressed }"
+        class:active={pressed}
+        class="btn btn-outline-secondary" aria-pressed="{ pressed }"
         on:touchstart="{ () => onKeydownR(key) }"
         on:touchend="{ () => onKeyupR(key) }">R{ key }</button>
     {/each}
