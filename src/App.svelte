@@ -49,8 +49,16 @@
       characterSet = result.characterSet
     }
     if (result.character) {
-      const utterance = new SpeechSynthesisUtterance(result.character);
-      window.speechSynthesis.speak(utterance);
+      if (result.character.match(/\W/)) {
+        const lastWord = text.match(/\w+\W*$/)
+        if (lastWord) {
+          const utterance = new SpeechSynthesisUtterance(lastWord);
+          window.speechSynthesis.speak(utterance);
+        }
+      } else {
+        const utterance = new SpeechSynthesisUtterance(result.character);
+        window.speechSynthesis.speak(utterance);
+      }
     }
     lastKeyL = null
     lastKeyR = null
