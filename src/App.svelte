@@ -8,6 +8,19 @@
   let lastKeyL = null
   let lastKeyR = null
   let characterSet = null  // Can be null, 0xe or 0xf.
+
+  const characterSetDisplay = {
+    null: '1',
+    0x0e: 'A',
+    0x0f: 'K'
+  }
+
+  const characterSetDescription = {
+    null: 'Numeric',
+    0x0e: 'Alphabetic (A-J + N, O, U)',
+    0x0f: 'Alphabetic (K-)'
+  }
+
   const keyboardEventCodesL = {KeyF: 0, KeyD: 1, KeyS: 2}
   const keyboardEventCodesR = {KeyJ: 0, KeyK: 1, KeyL: 2}
 
@@ -118,6 +131,11 @@
         <label for="result-text">Result
           <button class="btn btn-outline-secondary btn-sm" type="button" on:click={copyToClipboard}>Copy</button>
           <button class="btn btn-outline-secondary btn-sm" type="button" on:click={shareText}>Share</button>
+          {#if characterSet in characterSetDisplay}
+            <abbr title="{characterSetDescription[characterSet]} Character Set">
+              <span class="badge bg-secondary">{characterSetDisplay[characterSet]}</span>
+            </abbr>
+          {/if}
         </label>
         <textarea class="form-control align-self-stretch" id="result-text" style="height: calc({windowHeight}px - 50px);" readonly>{text}</textarea>
       </div>
