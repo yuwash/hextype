@@ -57,9 +57,9 @@ const keyMap0xe = {
   5: 'B',
   6: 'C',
   7: 'D',
-  9: '\b',  // backspace
+  9: 'F',
   10: '\x0d',  // back to default character set
-  11: 'F',
+  11: '\x0f',  // another alternative character set
   13: 'G',
   14: 'H',
   15: 'J',
@@ -74,9 +74,9 @@ const keyMap0xf = {
   6: 'R',
   7: 'S',
   8: 'T',
-  9: '\b',  // backspace
+  9: 'V',
   10: '\x0d',  // back to default character set
-  11: 'V',
+  11: '\x0e',  // alternative character set
   12: 'W',
   13: 'X',
   14: 'Y',
