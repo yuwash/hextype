@@ -53,7 +53,7 @@ export const getCharacter = (keyL, keyR) => {
   return keyMap[subMap[keyR]]
 }
 
-export const writeOverText = (keyL, keyR, text, cursor=null) => {
+export const writeOverText = (keyL, keyR, text, dispatch, cursor=null) => {
   if(cursor === null) {
     cursor = text.length
   }
@@ -62,10 +62,12 @@ export const writeOverText = (keyL, keyR, text, cursor=null) => {
     return text  // key combination ignored
   } else if(character === '\b') {
     return text.substring(0, cursor - 1) + text.substring(cursor)
-  } else if(character === '\r0e') {
-    return text  // TODO
-  } else if(character === '\r0f') {
-    return text  // TODO
+  } else if(character === '\x0e') {
+    dispatch('characterSetChange', 0x0e)
+    return text
+  } else if(character === '\x0f') {
+    dispatch('characterSetChange', 0x0f)
+    return text
   } else {
     return text.substring(0, cursor) + character + text.substring(cursor)
   }

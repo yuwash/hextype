@@ -1,11 +1,14 @@
 <script>
   import { writeOverText } from './hextype'
+  import { createEventDispatcher } from 'svelte'
 	export let text
   let windowHeight
   let pressedKeyL = null
   let pressedKeyR = null
   let lastKeyL = null
   let lastKeyR = null
+  let characterSet = null  // Can be null, 0xe or 0xf.
+  const dispatch = createEventDispatcher()
   const keyboardEventCodesL = {KeyF: 0, KeyD: 1, KeyS: 2}
   const keyboardEventCodesR = {KeyJ: 0, KeyK: 1, KeyL: 2}
   
@@ -28,10 +31,14 @@
   }
 
   const registerLastCharacter = () => {
-    text = writeOverText(lastKeyL, lastKeyR, text)
+    text = writeOverText(lastKeyL, lastKeyR, text, dispatch)
     lastKeyL = null
     lastKeyR = null
     scrollBottom('result-text')
+  }
+
+  const handleCharacterSetChange = event => {
+    characterSet = event.detail
   }
 
   const onKeyupL = key => {
@@ -66,7 +73,7 @@
 
 <svelte:window bind:innerHeight={windowHeight}/>
 
-<main>
+<main on:characterSetChange={handleCharacterSetChange}>
   <form><div class="form-row align-items-center" style="height: {windowHeight}px">
     <div class="col-auto btn-group-vertical align-self-stretch">
     {#each getKeyState(pressedKeyL) as pressed, key}
