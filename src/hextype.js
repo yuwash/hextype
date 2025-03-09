@@ -97,27 +97,24 @@ export const getCharacter = (keyL, keyR, characterSet) => {
   }
 }
 
-export const writeOverText = (keyL, keyR, text, dispatch, characterSet, cursor=null) => {
+export const writeOverText = (keyL, keyR, text, characterSet, cursor=null) => {
   if(cursor === null) {
     cursor = text.length
   }
   const character = getCharacter(keyL, keyR, characterSet)
   if(!character) {
-    return { text: text, character: null } // key combination ignored
+    return { text: text, character: null, characterSet: characterSet } // key combination ignored
   } else if(character === '\b') {
     const newText = text.substring(0, cursor - 1) + text.substring(cursor)
-    return { text: newText, character: character }
+    return { text: newText, character: character, characterSet: characterSet }
   } else if(character === '\x0d') {
-    dispatch('characterSetChange', null)
-    return { text: text, character: character }
+    return { text: text, character: character, characterSet: null }
   } else if(character === '\x0e') {
-    dispatch('characterSetChange', 0x0e)
-    return { text: text, character: character }
+    return { text: text, character: character, characterSet: 0x0e }
   } else if(character === '\x0f') {
-    dispatch('characterSetChange', 0x0f)
-    return { text: text, character: character }
+    return { text: text, character: character, characterSet: 0x0f }
   } else {
     const newText = text.substring(0, cursor) + character + text.substring(cursor)
-    return { text: newText, character: character }
+    return { text: newText, character: character, characterSet: characterSet }
   }
 }
