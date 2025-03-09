@@ -44,6 +44,45 @@ const keyMap = {
   15: '\n',  // carriage return -> new line
 }
 
+const keyMap0xe = {
+  // Assign the vowels and 'N' as another common letter to the one-key
+  // combinations.
+  1: 'A',
+  2: 'E',
+  3: 'I',
+  4: 'N',
+  8: 'O',
+  12: 'U',
+  // The rest:
+  5: 'B',
+  6: 'C',
+  7: 'D',
+  9: '\b',  // backspace
+  10: '\x0d',  // back to default character set
+  11: 'F',
+  13: 'G',
+  14: 'H',
+  15: 'J',
+}
+
+const keyMap0xf = {
+  1: 'K',
+  2: 'L',
+  3: 'M',
+  4: 'P',
+  5: 'Q',
+  6: 'R',
+  7: 'S',
+  8: 'T',
+  9: '\b',  // backspace
+  10: '\x0d',  // back to default character set
+  11: 'V',
+  12: 'W',
+  13: 'X',
+  14: 'Y',
+  15: 'Z',
+}
+
 export const getCharacter = (keyL, keyR) => {
   const subMap = keyCombinationCodes[keyL]
   if(!subMap) {
@@ -61,6 +100,9 @@ export const writeOverText = (keyL, keyR, text, dispatch, cursor=null) => {
     return text  // key combination ignored
   } else if(character === '\b') {
     return text.substring(0, cursor - 1) + text.substring(cursor)
+  } else if(character === '\x0d') {
+    dispatch('characterSetChange', null)
+    return text
   } else if(character === '\x0e') {
     dispatch('characterSetChange', 0x0e)
     return text
