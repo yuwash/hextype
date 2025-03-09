@@ -4,12 +4,15 @@
   "description": "virtual keyboard based on six keys",
   "author": "Yushin Washio <yuwash@yandex.com>",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "start": "parcel src/index.html"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.11.0",
-    "parcel-plugin-svelte": "^4.0.5",
-    "svelte": "^3.23.2"
+    "@sveltejs/vite-plugin-svelte": "^3.1.2",
+    "svelte": "^4.2.7",
+    "vite": "^5.4.14"
   }
 }
