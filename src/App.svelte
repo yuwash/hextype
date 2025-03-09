@@ -33,6 +33,10 @@
   const registerLastCharacter = () => {
     const result = writeOverText(lastKeyL, lastKeyR, text, dispatch, characterSet)
     text = result.text
+    if (result.character) {
+      const utterance = new SpeechSynthesisUtterance(result.character);
+      window.speechSynthesis.speak(utterance);
+    }
     lastKeyL = null
     lastKeyR = null
     scrollBottom('result-text')
